@@ -1,0 +1,58 @@
+<html>
+
+<head>
+  <title>_itch-List Kategorien</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <h1 id="name">-List </h1>
+  <p id="untertitel">Created by Marlon Zewen & Moritz Reinhold</h1>
+    <div id="main">
+      <h2>Kategorien</h2>
+      <h3 style="margin-bottom: 3%;">Dies ist eine Übersicht über die Kategorien mit der Anzahl der Listen in der
+        jeweiligen Kategorie.</h3>
+      <div class="kategorie" id="All" style="margin-bottom: 40px;">
+        <a href="_itch-list.html">Zufällige Liste</a>
+        <span class="right" id="all-count"></span>
+      </div>
+      
+
+    </div>
+    <h3><a href="Impressum.html">Impressum &amp; FAQ</a></h3>
+</body>
+<script>
+  window.$ = require('./jquery.js')
+  const renderer = require('./renderer.js')
+  const sqlite3 = require('sqlite3')
+
+  $('#name').html(["Witch-List", "Rich-List", "Ritch's-List", "Which-List", "Mitch's-List"][Math.floor(Math.random() * 5)])
+
+
+  const db = new sqlite3.Database('./Listen.db', (err) => {
+    db.all('SELECT COUNT(Sub_List.ID) as count, Subjects.display_name as name, Sub_List.Subjekt as short FROM Sub_List, Subjects WHERE Sub_List.Subjekt = Subjects.name GROUP BY Subjekt ORDER BY name', (err, res) => {
+      let html = ''
+      for (var entry of res) {
+        $('#main').append(`
+          <a class="kategorie" id="${entry.short}" onclick="play(this.id)" href="_itch-list.html">
+          ${entry.name} <span class="right" >${entry.count}</span>
+          </a>
+        `)
+      }
+      db.get('SELECT COUNT(*) AS count FROM Listen', (err, count) => {
+        $('#all-count').html(count.count)
+      })
+    })
+  })
+
+  const play = (id) => {
+    console.log(id)
+    require('electron').remote.getGlobal('sharedObject').cat = id
+  }
+</script>
+
+</html>

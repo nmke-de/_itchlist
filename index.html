@@ -1,0 +1,53 @@
+<html>
+
+<head>
+  <title>_itch-List Home</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1 id="name">-List </h1>
+  <p id="untertitel">Created by Marlon Zewen & Moritz Reinhold</h1>
+    <div id="main">
+      <h3 id="listcount" style="text-align: center; margin-top: 15%; margin-bottom: 10%; font-size: 18pt;"></h3>
+      <h3 style="text-align: center; margin-top: 10%; margin-bottom: 15%;"><a href="_itch-list.html"
+          style="border: solid 1pt; padding: 1%;">Zufällige Liste spielen<a> <a href="kategorien.html"
+              style="margin-left: 6%; border: solid 1pt; padding: 1%;">Kategorien anzeigen</a></h3>
+      <h2>Was ist das?</h2>
+      <h3 id="infotext">Richlist ist ein Quizspiel. Das Spiel gibt eine Liste vor, zum Beispiel die „Liste der Deutschen
+        Bundesländer“, und alle Mitspieler müssen nacheinander Einträge auf dieser Liste nennen. Spieler 1 ist als
+        erster am Zug und er gibt „Bayern“ ein. Da dies korrekt ist, ist der nächste Spieler dran. Spieler 2 gibt „NRW“
+        ein. Das ist ebenfalls korrekt. Er hätte auch Nordrheinwestphalen eingeben können, das Programme hätte beide
+        Schreibweisen akzeptiert. Nun ist Spieler 3 an der Reihe. Er ist nicht der hellste, wählt aber seit Jahren die
+        NPD und gibt deswegen „Ostpreußen“ ein. Damit ist er raus. Spieler 4 hat nicht richtig aufgepasst. Als er
+        „Nordrheinwestphalen“ eingibt, sagt das Programm ihm, dass er ebenfalls raus ist, da NRW bereits gennant wurde.
+        Jetzt ist wieder Spieler 1 am Zug. Er nennt Hessen, daraufhin Spieler 2 Berlin, er Brandburg und Spieler 2
+        Hamburg. Als Spieler 1 jetzt wieder am Zug ist, fällt ihm kein Bundesland mehr ein. Er klickt auf die
+        „Aufegeben“ Schaltfläche und gibt das Spiel verloren. Spieler 2 hat gewonnen. Spieler 2 nennt nun zum Spaß noch
+        die verbliebenen Bundesländer, um sich zu Beweisen, dass er in SoWi immer gut aufgepasst hat.
+        </br>
+        Die Listen sind in verschiedenen Themenbereiche eingeteilt. In der <a href="kategorien.html"> Übersicht der
+          Themenbereiche </a> können zufällige Listen aus einer Kategorien gespielt werden, oder alle Listen einer
+        Kategorie angezeigt und manuell ausgewählt werden.
+      </h3>
+    </div>
+    <h3><a href="Impressum.html">Impressum &amp; FAQ</a></h3>
+</body>
+
+<script>
+  window.$ = require('./jquery.js')
+  const renderer = require('./renderer.js')
+  const sqlite3 = require('sqlite3')
+
+  $('#name').html(["Witch-List", "Rich-List", "Ritch's-List", "Which-List", "Mitch's-List"][Math.floor(Math.random() * 5)])
+
+  const db = new sqlite3.Database('./Listen.db', (err) => {
+    db.get('SELECT COUNT(*) AS count FROM Listen', (err, count) => {
+      $('#listcount').html(["Witch-List", "Rich-List", "Ritch's-List", "Which-List", "Mitch's-List"][Math.floor(Math.random() * 5)] + " umfasst aktuell <span style='color: #42a7f4'>" + count.count + '</span> Listen.')
+    })
+  })
+</script>
+
+</html>
