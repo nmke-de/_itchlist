@@ -4,6 +4,6 @@
 
 ## Original developers
 
-- (The-Account)[https://github.com/The-Account]
-- (Schruht)[https://github.com/Schruht]
+- [The-Account](https://github.com/The-Account)
+- [Schruht](https://github.com/Schruht)
 
