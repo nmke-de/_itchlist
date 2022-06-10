@@ -37,11 +37,12 @@
 </body>
 
 <script>
-  window.$ = require('./jquery.js')
-  const renderer = require('./renderer.js')
-  const sqlite3 = require('sqlite3')
+  //window.$ = require('./jquery.js')
+  //const renderer = require('./renderer.js')
+  //const sqlite3 = require('sqlite3')
 
-  $('#name').html(["Witch-List", "Rich-List", "Ritch's-List", "Which-List", "Mitch's-List"][Math.floor(Math.random() * 5)])
+  document.getElementById("name").innerHTML = ["Witch-List", "Rich-List", "Ritch's-List", "Which-List", "Mitch's-List"][Math.floor(Math.random() * 5)]
+  //$('#name').html(["Witch-List", "Rich-List", "Ritch's-List", "Which-List", "Mitch's-List"][Math.floor(Math.random() * 5)])
 
   const db = new sqlite3.Database('./Listen.db', (err) => {
     db.get('SELECT COUNT(*) AS count FROM Listen', (err, count) => {
